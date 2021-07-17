@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Notes</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="topbar">
+        <h1>Notes</h1>
+        <p>v1.0.0</p>
+      </div>
+      <div id="sidebar">
+        <button id="add" @click="addNotes">+ Add</button>
+        <div id="notes-list">
+          <note-page v-for="(noteData, index) in notesData" @mousedown.native="onSelected(index)" :note-data="noteData" :index="index" :class="{ selected: index == selectedIndex }"></note-page>      
+        </div>
+      </div>
+      <div id="mainbar">
+          <div id="notes-title">
+            <h1>#</h1>
+            <input id="editor-title" class="editor-font" spellcheck="false" placeholder="title" v-model="title" @input="titleChanged"/>
+            <div id="trash-wrapper">
+              <img @mouseover="mouseOver" @mouseleave="mouseLeave" @click="trashClicked" :src="trash">
+            </div>
+          </div>
+          <textarea id="editor-content" @keydown.tab.prevent="tabber($event)" v-model="notes" @input="notesChanged" class="editor-font" spellcheck="false" placeholder="start typing..."></textarea>
+      </div>
+    </div>
+
+    <!-- You can also require other files to run in this process -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>

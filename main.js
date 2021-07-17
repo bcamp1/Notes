@@ -1,22 +1,25 @@
-import { app, BrowserWindow } from "electron";
-import * as path from "path";
+const { app, BrowserWindow } = require('electron');
+const path = require('path');
+
+try {
+	require('electron-reloader')(module);
+} catch {}
 
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    height: 600,
-    webPreferences: {
-      preload: path.join(__dirname, "preload.js"),
-    },
-    width: 800,
+    minHeight: 600,
+    minWidth: 800,
+    height: 1200,
+    width: 1600,
+    autoHideMenuBar: true,
+    
   });
 
   // and load the index.html of the app.
-  mainWindow.loadFile(path.join(__dirname, "../index.html"));
-
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  mainWindow.loadFile(path.join(__dirname, "./public/index.html"));
 }
+
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
